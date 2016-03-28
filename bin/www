@@ -1,0 +1,94 @@
+#!/usr/bin/env node
+
+var app = require('../app');
+var debug = require('debug')('Server');
+var http = require('http');
+
+var port = normalizePort(process.env.PORT || '8080');
+app.set('port', port);
+
+var server = http.createServer(app);
+
+server.listen(port);
+server.on('error', function(error){
+	if (error.syscall !== 'listen') {
+		throw error;
+	}
+
+	switch (error.code) {
+		case 'EACCES':
+			console.error('Permission denied');
+			process.exit(1);
+			break;
+		case 'EADDRINUSE':
+			console.error('Address already in use');
+			process.exit(1);
+			break;
+		case 'ECONNREFUSED':
+			console.error('Connection refused');
+			process.exit(1);
+			break;
+		case 'ECONNRESET':
+			console.error('Connection reset by peer');
+			process.exit(1);
+			break;
+		case 'EEXIST':
+			console.error('File exists');
+			process.exit(1);
+			break;
+		case 'EISDIR':
+			console.error('Is a directory');
+			process.exit(1);
+			break;
+		case 'EMFILE':
+			console.error('Too many open files in system');
+			process.exit(1);
+			break;
+		case 'ENOENT':
+			console.error('No such file or directory');
+			process.exit(1);
+			break;
+		case 'ENOTDIR':
+			console.error('Not a directory');
+			process.exit(1);
+			break;
+		case 'ENOTEMPTY':
+			console.error('Directory not empty');
+			process.exit(1);
+			break;
+		case 'EPERM':
+			console.error('Operation not permitted');
+			process.exit(1);
+			break;
+		case 'EPIPE':
+			console.error('Broken pipe');
+			process.exit(1);
+			break;
+		case 'ETIMEDOUT':
+			console.error('Operation timed out');
+			process.exit(1);
+			break;
+		default:
+			throw error;
+	}
+});
+
+
+server.on('listening', function(){
+	var address = server.address();
+	debug('Listening on ' + address);
+});
+
+function normalizePort(val) {
+	var port = parseInt(val, 10);
+
+	if (isNaN(port)) {
+		return val;
+	}
+
+	if (port >= 0) {
+		return port;
+	}
+
+	return false;
+}
