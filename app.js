@@ -7,6 +7,7 @@ var path = require('path');
 var logger = require('morgan');
 
 var resources = require('./routes/resources');
+var typeahead = require('./routes/typeahead');
 var db = require('./services/db/db');
 
 var app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/resources', resources)
+app.use('/typeahead', typeahead)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

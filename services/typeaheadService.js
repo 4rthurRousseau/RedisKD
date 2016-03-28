@@ -1,27 +1,10 @@
-var db = require('./db');
+var db = require('./db/db');
 
-var resourceService = {
+var typeaheadService = {
 
-    //Fonctions
-    get: function(){
-        return undefined;
-    },
-
-    getEntity: function(key){
-        return undefined;
-    },
-
-    find: function(keyword) {
-        return undefined;
-    },
-
-    add: function(data){
-        return undefined;
-    },
-
-    delete: function(key){
-
+    get: function(prefix, callback){
+        // return db.getAll(prefix, callback);
     }
 };
 
-module.exports = touiteService;
+module.exports = typeaheadService;
