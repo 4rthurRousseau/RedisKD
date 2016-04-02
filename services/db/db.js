@@ -5,7 +5,7 @@ var winston = require('winston');
 
 var port = "6379";
 //var host = "192.168.1.21";
-var host = "172.17.0.2";
+var host = "172.16.4.2";
 
 var client = redis.createClient(port, host);
 
@@ -22,15 +22,57 @@ var db = {
     //Fonctions
 
     /**
-     * Récupère les IDs d'un certain type
+     * Récupère les élément d'une list
      * @param type
      * @param callback
      */
-    getAll: function (type, callback) {
+    getAll: function (schema, type, callback) {
         console.log("Get all key : " + type);
-        return client.lrange(type, 0, -1, callback);
+        switch(type){ 
+            case 'list' :
+                  return client.zrange(schema, 0, -1, callback);
+                  break;
+            }
     },
-
+    /**
+     * Récupère la valeur d'un champ selon son type
+     * @param schema nom du champ
+     * @param type
+     * @param callback
+     */
+    get: function (schema, type, callback) {
+        console.log("Get value of " + schema + ":" + type);
+         switch(type){
+            case 'hset' :
+                return client.hgetall(schema, callback);
+                break; 
+            case 'set' : 
+                return client.get(schema, callback);
+                break; 
+            }
+    },
+    /**
+    * Retourne la position d'un élémént dans une liste
+    * @param key Key de l'élément
+    * @param schema Nom du champ
+    * @param callback
+    **/
+    getRank : function (schema,key,callback){
+        return client.zrank(schema, key, callback);
+    },
+    /**
+    * Retourne le nombre d'élément dans une liste
+    * @param schema Nom du champ
+    * @param type type du champ
+    * @param callback 
+    **/
+    count: function (schema, type, callback) {
+        switch(type){ 
+            case 'list' :
+                  return client.zcount(schema, 0, 3, callback);
+                  break;
+            }
+    },
     /**
      * Supprime un élément d'un certain type
      * @param type

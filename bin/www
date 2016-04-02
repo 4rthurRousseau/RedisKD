@@ -73,7 +73,6 @@ server.on('error', function(error){
 	}
 });
 
-
 server.on('listening', function(){
 	var address = server.address();
 	debug('Listening on ' + address);
