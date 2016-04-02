@@ -5,7 +5,7 @@ var winston = require('winston');
 
 var port = "6379";
 //var host = "192.168.1.21";
-var host = "172.17.0.2";
+var host = "172.16.4.2";
 
 var client = redis.createClient(port, host);
 
@@ -26,9 +26,26 @@ var db = {
      * @param type
      * @param callback
      */
-    getAll: function (type, callback) {
+    getAll: function (schema, type, callback) {
         console.log("Get all key : " + type);
-        return client.lrange(type, 0, -1, callback);
+        return client.keys('*', callback);
+    },
+    /**
+     * Récupère la valeur d'un champ selon son type
+     * @param nom du champ
+     * @param type
+     * @param callback
+     */
+    get: function (schema, type, callback) {
+        console.log("Get value of " + schema + ":" + type);
+         switch(type){
+            case 'hset' :
+                return client.hgetall(schema, callback);
+                break; 
+            case 'set' : 
+                return client.get(schema, callback);
+                break; 
+            }
     },
 
     /**

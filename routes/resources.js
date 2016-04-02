@@ -3,8 +3,10 @@ var router = express.Router();
 var service = require('../services/resourceService')
 
 router.get('/', function(req, res, next) {
-	service.get(function(err, data){
-    	res.send(data);
+	service.get(function(err, reply) {
+        if(err)
+            res.send(err);
+        res.send(reply);
     });
 });
 

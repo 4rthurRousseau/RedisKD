@@ -1,6 +1,6 @@
 var db = require('./db/db');
 
-var resourceService = {
+var tagService = {
 
     //Fonctions
     get: function(callback){
@@ -8,7 +8,7 @@ var resourceService = {
     },
 
     getEntity: function(key, callback){
-        return undefined;
+        db.get(key, 'set', callback);
     },
 
     find: function(keyword) {
@@ -24,4 +24,4 @@ var resourceService = {
     }
 };
 
-module.exports = resourceService;   
+module.exports = tagService;   
