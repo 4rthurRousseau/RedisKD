@@ -28,7 +28,11 @@ var db = {
      */
     getAll: function (schema, type, callback) {
         console.log("Get all key : " + type);
-        return client.keys('*', callback);
+        switch(type){ 
+            case 'list' :
+                  return client.zrange(schema, 0, -1, callback);
+                  break;
+            }
     },
     /**
      * Récupère la valeur d'un champ selon son type

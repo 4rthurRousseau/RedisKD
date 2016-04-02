@@ -1,14 +1,14 @@
 var db = require('./db/db');
 
-var resourceService = {
+var postService = {
 
     //Fonctions
-    get: function(key,callback){
-        db.getAll(key, 'list', callback);
+    get: function(callback){
+        db.getAll(null, null, callback);
     },
 
     getEntity: function(key, callback){
-        return undefined;
+        db.get('posts:' + key, 'hset', callback);
     },
 
     find: function(keyword) {
@@ -24,4 +24,4 @@ var resourceService = {
     }
 };
 
-module.exports = resourceService;   
+module.exports = postService;   

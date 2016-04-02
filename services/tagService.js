@@ -3,12 +3,12 @@ var db = require('./db/db');
 var tagService = {
 
     //Fonctions
-    get: function(callback){
-        db.getAll(null, null, callback);
+    get: function(key,callback){
+        db.getAll(key, 'list', callback);
     },
 
     getEntity: function(key, callback){
-        db.get(key, 'set', callback);
+        db.get('tags:' + key, 'set', callback);
     },
 
     find: function(keyword) {
