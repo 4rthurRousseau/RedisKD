@@ -22,7 +22,7 @@ var db = {
     //Fonctions
 
     /**
-     * Récupère les IDs d'un certain type
+     * Récupère les élément d'une list
      * @param type
      * @param callback
      */
@@ -36,7 +36,7 @@ var db = {
     },
     /**
      * Récupère la valeur d'un champ selon son type
-     * @param nom du champ
+     * @param schema nom du champ
      * @param type
      * @param callback
      */
@@ -51,7 +51,28 @@ var db = {
                 break; 
             }
     },
-
+    /**
+    * Retourne la position d'un élémént dans une liste
+    * @param key Key de l'élément
+    * @param schema Nom du champ
+    * @param callback
+    **/
+    getRank : function (schema,key,callback){
+        return client.zrank(schema, key, callback);
+    },
+    /**
+    * Retourne le nombre d'élément dans une liste
+    * @param schema Nom du champ
+    * @param type type du champ
+    * @param callback 
+    **/
+    count: function (schema, type, callback) {
+        switch(type){ 
+            case 'list' :
+                  return client.zcount(schema, 0, 3, callback);
+                  break;
+            }
+    },
     /**
      * Supprime un élément d'un certain type
      * @param type
