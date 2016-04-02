@@ -4,7 +4,11 @@ var resourceService = {
 
     //Fonctions
     get: function(key,callback){
-        db.getAll(key, 'list', callback);
+        console.log(key);
+        if(key == 'resources')
+            db.getAll(key, 'list', callback);
+        else
+            db.getAll(key, 'setStored', callback);
     },
 
     getEntity: function(key, callback){

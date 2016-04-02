@@ -29,9 +29,15 @@ var db = {
     getAll: function (schema, type, callback) {
         console.log("Get all key : " + type);
         switch(type){ 
-            case 'list' :
+            case 'list':
                   return client.zrange(schema, 0, -1, callback);
                   break;
+            case 'hset':
+                  return client.hgetall(schema, callback); 
+                  break;
+            case 'setStored':
+                  return client.smembers(schema, callback);
+                  break; 
             }
     },
     /**
@@ -70,6 +76,9 @@ var db = {
         switch(type){ 
             case 'list' :
                   return client.zcount(schema, 0, 3, callback);
+                  break;
+            case 'setStored' :
+                  return client.scard(schema, callback);
                   break;
             }
     },

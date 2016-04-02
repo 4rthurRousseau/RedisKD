@@ -8,7 +8,7 @@ var tagService = {
     * @param callback
     **/
     get: function(key,callback){
-        db.getAll(key, 'list', callback);
+        db.getAll(key, 'setStored', callback);
     },
     /**
     * Retourne le nombre de resources du Tag
@@ -32,7 +32,7 @@ var tagService = {
     * @param callback
     **/
     count: function(key,callback){
-        db.count(key,'list', callback);
+        db.count(key,'setStored', callback);
     },
 
     find: function(keyword) {
