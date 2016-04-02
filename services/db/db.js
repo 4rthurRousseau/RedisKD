@@ -43,7 +43,7 @@ var db = {
     get: function (schema, type, callback) {
         console.log("Get value of " + schema + ":" + type);
          switch(type){
-            case 'hset' :
+            case 'hash' :
                 return client.hgetall(schema, callback);
                 break; 
             case 'set' : 

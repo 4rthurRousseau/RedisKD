@@ -9,5 +9,16 @@ router.get('/', function(req, res, next) {
         res.send(reply);
     });
 });
-
+/**
+* Retourne la resource
+* @param keyResource Key de la resource 
+**/
+router.get('/:keyResource', function(req, res, next) {
+	var key = req.params.keyResource;
+	service.getEntity('resources:' + key,function(err, reply) {
+        if(err)
+            res.send(err);
+        res.send(reply);
+    });
+});
 module.exports = router;
