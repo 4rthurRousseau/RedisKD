@@ -41,6 +41,9 @@ var db = {
 			case 'keys':
 				  return client.keys(schema,callback);
 				  break;
+			case 'inter' :
+				console.log(schema);
+				return client.sinter(schema, callback);
 			}
 	},
 	/**
@@ -57,7 +60,7 @@ var db = {
 				break; 
 			case 'set' : 
 				return client.get(schema, callback);
-				break; 
+				break;
 			}
 	},
 	/**
@@ -135,13 +138,20 @@ var db = {
 		}
 	},
 
+	generateInterKeys: function(array, prefix){
+		var arr = [];
+		array.forEach(function (item, index, array){
+			arr.push(prefix + ":" + item); 
+		});
+		return arr;
+	},
+
 	/**
 	 * Récupère le suffixe d'une clef générée
 	 * @param generatedKey
 	 * @returns {*}
 	 */
 	getSuffixKey: function(generatedKey){
-
 		return generatedKey.split(":")[1];
 	},
 
