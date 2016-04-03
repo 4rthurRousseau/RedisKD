@@ -5,7 +5,8 @@ var express = require('express');
 var favicon = require('serve-favicon');
 var path = require('path');
 var logger = require('morgan');
-
+//Import data 
+//require('./import.js');
 var resources = require('./routes/resources');
 var tags = require('./routes/tags');
 var typeahead = require('./routes/typeahead');

@@ -3,12 +3,8 @@ var db = require('./db/db');
 var resourceService = {
 
 	//Fonctions
-	get: function(key,callback){
-		console.log(key);
-		if(key == db.RESOURCES)
-			db.getAll(key, 'list', callback);
-		else
-			db.getAll(key, 'setStored', callback);
+	get: function(key,type,callback){
+			db.getAll(key, type, callback);
 	},
 
 	getEntity: function(key, callback){

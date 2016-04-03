@@ -7,8 +7,8 @@ var tagService = {
 	* @param key Key du tag
 	* @param callback
 	**/
-	get: function(key,callback){
-		db.getAll(key, 'setStored', callback);
+	get: function(key,type,callback){
+		db.getAll(key, type, callback);
 	},
 	/**
 	* Retourne le nombre de resources du Tag

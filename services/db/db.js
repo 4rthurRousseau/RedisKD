@@ -38,6 +38,9 @@ var db = {
 			case 'setStored':
 				  return client.smembers(schema, callback);
 				  break; 
+			case 'keys':
+				  return client.keys(schema,callback);
+				  break;
 			}
 	},
 	/**
