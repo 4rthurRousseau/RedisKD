@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var service = require('../services/resourceService')
+var service = require('../services/resourceService');
 /**
 * Retourne les ID des resources**/
 router.get('/', function(req, res, next) {
@@ -27,7 +27,17 @@ router.get('/:keyResource/tags', function(req, res, next) {
 router.get('/:keyResource', function(req, res, next) {
 	var key = req.params.keyResource;
 	service.getEntity('resources:' + key,function(err, reply) {
-		res.send(err ? err : reply);
+		if (!err){
+			service.get('resources:' + key + ':tags',function(tag_err, tag_reply) {
+				if (tag_err){
+					reply.tags = [];
+					return reply;
+				} else {
+					reply.tags = tag_reply;
+					res.send(reply);
+				}
+			});
+		}
 	});
 });
 module.exports = router;
