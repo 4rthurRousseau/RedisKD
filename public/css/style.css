@@ -1,6 +1,38 @@
+html, body{
+	height: 100%;
+	margin: 0 auto;
+}
 div#ListTags{
 	width : 20%;
-	height: 500px;
+	height: 99%;
 	overflow: auto;
 	overflow-y : scroll;
+	background-color: whitesmoke;
+}
+div#ListTags h2{
+	color: darkred;
+}
+div#ListTags li{
+	color: blue;
+}
+div#Tags {
+	height : 100%;
+}
+div#ListResources{
+	width: 60%;
+}
+div#ListResources, div#ListTags{
+	display: inline-block;	
+}
+.resources {
+	width: 100%;
+    padding-left: 10%;
+    text-align: justify;
+}
+
+.date {
+	text-align: right;
+    color: grey;
+    font-size: 14px;
+    font-style: italic;
 }

@@ -7,12 +7,24 @@
 		<link rel="stylesheet" href="css/style.css"/>
 	</head>
 	<body ng-app="RedisKD" ng-controller="MainCtrl">
-		<h1>Hello world!</h1>
-		<div id="ListTags"  ng-controller="TagCtrl">
+		<div id="Tags"ng-controller="TagCtrl">
+		<div id="ListTags">
+		<h2> Les tags </h2>
 		<ul>
-			<li> Tags </li>
-			<li   ng-repeat="tag in tags">{{tag.replace('tags:','')}}</li>
+			<li ng-repeat="tag in tags"> <span ng-click="getResourcesByTag(tag.replace('tags:',''))">{{tag.replace('tags:','')}}</span></li>
 		</ul>
+		</div>
+		<div id="ListResources"> 
+		<div class='resources' ng-repeat="resource in resources">
+			<span class='date'> {{resource.time}} </span>
+			<br/>
+			<br/><span class='description'> {{resource.description}} </span>
+			<br/><a class="link" href='{{resource.href}}'>Link</a>
+			<br/><span class="informations"> Shared : {{resource.shared}} | To Read : {{resource.toread}} </span>
+			<br/> Tags : {{resource.tags.concat()}}
+			<hr>
+		</div>
+		</div>
 		</div>
 		<!-- Javascript -->
 		<script src="js/libs/jquery/dist/jquery.min.js"></script>
