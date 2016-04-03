@@ -4,7 +4,7 @@ var service = require('../services/resourceService')
 /**
 * Retourne les ID des resources**/
 router.get('/', function(req, res, next) {
-	service.get('resources',function(err, reply) {
+	service.get('resources','list',function(err, reply) {
 		res.send(err ? err : reply);
 	});
 });
@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 **/
 router.get('/:keyResource/tags', function(req, res, next) {
 	var key = req.params.keyResource;
-	service.get('resources:' + key + ':tags',function(err, reply) {
+	service.get('resources:' + key + ':tags','setStored',function(err, reply) {
 		res.send(err ? err : reply);
 	});
 });

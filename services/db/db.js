@@ -30,7 +30,7 @@ var db = {
 		console.log("Get all key : " + type);
 		switch(type){ 
 			case 'list':
-				  return client.zrange(schema, 0, -1, callback);
+				  return client.lrange(schema, 0, -1, callback);
 				  break;
 			case 'hset':
 				  return client.hgetall(schema, callback); 
@@ -38,6 +38,9 @@ var db = {
 			case 'setStored':
 				  return client.smembers(schema, callback);
 				  break; 
+			case 'keys':
+				  return client.keys(schema,callback);
+				  break;
 			}
 	},
 	/**

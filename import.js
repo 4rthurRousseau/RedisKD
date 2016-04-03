@@ -1,5 +1,5 @@
 var redis = require('redis');
-var host = "172.17.0.2";
+var host = "172.16.4.2";
 var port = "6379";
 
 var client = redis.createClient(port, host);

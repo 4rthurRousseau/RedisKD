@@ -16,7 +16,7 @@ router.get('/count/:keyTag', function(req, res, next) {
 * Retourne le libellé de tous les tags
 **/
 router.get('/', function(req, res, next) {
-	service.get('tags',function(err, reply) {
+	service.get('tags:*','keys',function(err, reply) {
 		res.send(err ? err : reply);
 	});
 });
@@ -36,7 +36,7 @@ router.get('/rank/:keyTag', function(req, res, next) {
 **/
 router.get('/:keyTag', function(req, res, next) {
 	var key = req.params.keyTag;
-	service.get('tags:' + key,function(err, reply) {
+	service.get('tags:' + key,'setStored',function(err, reply) {
 		res.send(err ? err : reply);
 	});
 });
