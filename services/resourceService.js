@@ -5,7 +5,7 @@ var resourceService = {
 	//Fonctions
 	get: function(key,callback){
 		console.log(key);
-		if(key == 'resources')
+		if(key == db.RESOURCES)
 			db.getAll(key, 'list', callback);
 		else
 			db.getAll(key, 'setStored', callback);
