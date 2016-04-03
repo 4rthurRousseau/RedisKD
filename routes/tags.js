@@ -9,20 +9,16 @@ var service = require('../services/tagService')
 router.get('/count/:keyTag', function(req, res, next) {
 	var key = req.params.keyTag;
 	service.count('tags:' + key,function(err, reply) {
-        if(err)
-            res.sendStatus(err);
-        res.sendStatus(reply);
-    });
+		res.sendStatus(err ? err : reply);
+	});
 });
 /**
 * Retourne le libellé de tous les tags
 **/
 router.get('/', function(req, res, next) {
 	service.get('tags',function(err, reply) {
-        if(err)
-            res.send(err);
-        res.send(reply);
-    });
+		res.send(err ? err : reply);
+	});
 });
 /**
 * Retourne la position d'un tag
@@ -31,10 +27,8 @@ router.get('/', function(req, res, next) {
 router.get('/rank/:keyTag', function(req, res, next) {
 	var key = req.params.keyTag;
 	service.getRank(key,function(err, reply) {
-        if(err)
-            res.sendStatus(err);
-        res.sendStatus(reply);
-    });
+		res.sendStatus(err ? err : reply);
+	});
 });
 /**
 * Retourne les resources du tag
@@ -43,9 +37,8 @@ router.get('/rank/:keyTag', function(req, res, next) {
 router.get('/:keyTag', function(req, res, next) {
 	var key = req.params.keyTag;
 	service.get('tags:' + key,function(err, reply) {
-        if(err)
-            res.send(err);
-        res.send(reply);
-    });
+		res.send(err ? err : reply);
+	});
 });
+
 module.exports = router;

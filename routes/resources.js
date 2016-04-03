@@ -5,22 +5,18 @@ var service = require('../services/resourceService')
 * Retourne les ID des resources**/
 router.get('/', function(req, res, next) {
 	service.get('resources',function(err, reply) {
-        if(err)
-            res.send(err);
-        res.send(reply);
-    });
+		res.send(err ? err : reply);
+	});
 });
 /**
 * Retourne les tags de la resource
 * @param keyResource Key du de la resource
 **/
 router.get('/:keyResource/tags', function(req, res, next) {
-    var key = req.params.keyResource;
-    service.get('resources:' + key + ':tags',function(err, reply) {
-        if(err)
-            res.send(err);
-        res.send(reply);
-    });
+	var key = req.params.keyResource;
+	service.get('resources:' + key + ':tags',function(err, reply) {
+		res.send(err ? err : reply);
+	});
 });
 
 /**
@@ -31,9 +27,7 @@ router.get('/:keyResource/tags', function(req, res, next) {
 router.get('/:keyResource', function(req, res, next) {
 	var key = req.params.keyResource;
 	service.getEntity('resources:' + key,function(err, reply) {
-        if(err)
-            res.send(err);
-        res.send(reply);
-    });
+		res.send(err ? err : reply);
+	});
 });
 module.exports = router;
