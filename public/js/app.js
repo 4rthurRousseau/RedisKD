@@ -16,9 +16,7 @@ toastr.options = {
  * Contrôlleur principal
  */
 app.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$route', function($scope, $rootScope, $location, $route) {
-
 	$rootScope.pagination = 10;
-
 }]);
 
 /**
