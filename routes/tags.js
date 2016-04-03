@@ -36,9 +36,17 @@ router.get('/rank/:keyTag', function(req, res, next) {
 **/
 router.get('/:keyTag', function(req, res, next) {
 	var key = req.params.keyTag;
-	service.get('tags:' + key,'setStored',function(err, reply) {
-		res.send(err ? err : reply);
-	});
+	var tags = key.split(',');
+
+	if (tags.length == 1){
+		service.get('tags:' + key,'setStored',function(err, reply) {
+			res.send(err ? err : reply);
+		});
+	} else {
+		service.get(tags, 'inter', function(err, reply){
+			res.send(err ? err : reply);
+		})
+	}
 });
 
 module.exports = router;
