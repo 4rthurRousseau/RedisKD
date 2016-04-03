@@ -1,0 +1,24 @@
+{
+  "name": "RedisKD",
+  "version": "0.0.1",
+  "homepage": "https://github.com/4rthurRousseau/RedisKD",
+  "authors": [
+    "4rthurRousseau <arthur.rousseau2@gmail.com>",
+    "ImoucheG <imouche.guillaume@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3",
+    "angular-route": "~1.3",
+    "bootstrap": "~3.3",
+    "toastr": "~2.1",
+    "angular-strap": "~2.2"
+  }
+}
