@@ -3355,6 +3355,7 @@ reading.forEach(function (resource, resource_index, resource_array) {
 
 	// Ajout de l'identifiant de la ressource au sorted set "tags"
 	resource.tags.split(' ').forEach(function (tag, tag_index, tag_array){
+		client.sadd("tags", tag);
 		client.sadd("tags:" + tag, resource.hash);
 		client.sadd("resources:" + resource.hash + ":tags", tag);
 	});
