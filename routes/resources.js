@@ -32,7 +32,7 @@ router.get('/:keyResource', function(req, res, next) {
 			service.get('resources:' + key + ':tags', 'setStored', function(tag_err, tag_reply) {
 				if (tag_err){
 					reply.tags = [];
-					return reply;
+					res.send(reply);
 				} else {
 					reply.tags = tag_reply;
 					res.send(reply);

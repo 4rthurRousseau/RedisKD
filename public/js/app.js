@@ -37,6 +37,7 @@ app.controller('NavbarCtrl', ['$scope', '$rootScope', '$location', '$route', fun
 	//Stocke le focus
 	$scope.focused = false;
 }]);
+
 app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http', function($scope, $rootScope, $location, $route, $http) {
 	$scope.tags = [];
 	$http.get(API + '/tags').then(function(response) {
