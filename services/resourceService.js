@@ -9,18 +9,6 @@ var resourceService = {
 
 	getEntity: function(key, callback){
 		db.get(key, 'hash', callback);
-	},
-
-	find: function(keyword) {
-		return undefined;
-	},
-
-	add: function(data){
-		return undefined;
-	},
-
-	delete: function(key){
-
 	}
 };
 

@@ -16,6 +16,7 @@
     "cors": "~2.7.1",
     "async": "2.0.0-rc.2",
     "node-uuid": "~1.4",
-    "winston": "~2.2"
+    "winston": "~2.2",
+    "bluebird": "~3.0"
   }
 }

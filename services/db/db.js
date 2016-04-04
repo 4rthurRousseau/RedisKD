@@ -41,10 +41,10 @@ var db = {
 			case 'keys':
 				  return client.keys(schema,callback);
 				  break;
-			case 'inter' :
-				console.log(schema);
-				return client.sinter(schema, callback);
 			}
+	},
+	intersect: function (schema, callback){
+		return client.sinter(schema, callback);
 	},
 	/**
 	 * Récupère la valeur d'un champ selon son type
