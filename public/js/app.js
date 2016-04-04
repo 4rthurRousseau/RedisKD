@@ -49,14 +49,13 @@ app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http
 	$scope.getResourcesByTag = function(tag) {
 		$scope.resources = [];
 		$http.get(API + '/tags/' + tag).then(function(response) {
-			response.data.forEach(function(element, index, array) {
-				$http.get(API + '/resources/' + element).then(function(response) {
+			$http.get(API + '/resources/' + response.data).then(function(response) {
+					console.log(response.data);
 					$scope.resources.push(response.data);
 				}, function(response) {
 					return response;
 				});
-			});
-		}, function(response) {
+			}, function(response) {
 			return response;
 		});
 	};

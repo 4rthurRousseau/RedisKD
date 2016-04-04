@@ -12,18 +12,20 @@
 		<div id="ListTags">
 		<h2> Les tags </h2>
 		<ul>
-			<li ng-repeat="tag in tags"> <span ng-click="getResourcesByTag(tag.replace('tags:',''))">{{tag.replace('tags:','')}}</span></li>
+			<li ng-repeat="tag in tags"> <span ng-click="getResourcesByTag(tag.tag)">{{tag.tag}} ({{tag.count}})</span></li>
 		</ul>
 		</div>
 		<div id="ListResources"> 
 		<div class='resources' ng-repeat="resource in resources">
-			<span class='date'> {{resource.time}} </span>
-			<br/>
-			<br/><span class='description'> {{resource.description}} </span>
-			<br/><a class="link" href='{{resource.href}}'>Link</a>
-			<br/><span class="informations"> Shared : {{resource.shared}} | To Read : {{resource.toread}} </span>
-			<br/> Tags : {{resource.tags.concat()}}
-			<hr>
+			<div class='resource' ng-repeat="r in resource">
+				<span class='date'> {{r.time}} </span>
+				<br/>
+				<br/><span class='description'> {{r.description}} </span>
+				<br/><a class="link" href='{{r.href}}'>Link</a>
+				<br/><span class="informations"> Shared : {{r.shared}} | To Read : {{r.toread}} </span>
+				<br/> Tags : {{r.tags.concat()}}
+				<hr>
+			</div>	
 		</div>
 		</div>
 		</div>
