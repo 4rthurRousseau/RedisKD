@@ -47,3 +47,7 @@ div#ListResources, div#ListTags{
 .danger  {
 	color: #d9534f;
 }
+
+ul#tags {
+	list-style-type: none;
+}
