@@ -48,10 +48,14 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	}, function(response) {
 		return response;
 	});
-	$scope.addCurrentTags = function(tag){
-		if($scope.currentTags.indexOf(tag) == -1)
-			if($scope.searchTags.indexOf(tag) !== -1)
+	$scope.addCurrentTags = function(tag,isSearch){
+		if(isSearch){
+			if($scope.currentTags.indexOf(tag) == -1)
+				if($scope.searchTags.indexOf(tag) !== -1)
+					$scope.currentTags.push(tag);
+			}else
 				$scope.currentTags.push(tag);
+				
 	};
 	$scope.updateTags = function(typed){
         	$scope.searchTags = [];
@@ -63,9 +67,10 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 			return response;
 			});
         }
-	$scope.getResourcesByTag = function(tag) {
+	$scope.getResourcesByTag = function() {
 		$scope.resources = [];
-		$http.get(API + '/tags/' + tag).then(function(response) {
+		if($scope.currentTags.length > 0)
+		$http.get(API + '/tags/' + $scope.currentTags.toString()).then(function(response) {
 			$http.get(API + '/resources/' + response.data).then(function(response) {
 					$scope.resources.push(response.data);
 				}, function(response) {
@@ -76,7 +81,3 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 		});
 	};
 }]);
-
-app.controller('TagSearchCtrl',  ['$scope', '$http', function($scope,$http){
-        
-    }]);
