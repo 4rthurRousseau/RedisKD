@@ -8,7 +8,7 @@ var tagService = {
 	* @param callback
 	**/
 	get: function(key,type,callback){
-		type == "inter" ? db.intersect(db.generateInterKeys(key, "tags"), callback) : db.getAll(key, type, callback);
+		type == "inter" ? db.intersect(db.generateInterKeys(key, "tags", ''), callback) : db.getAll(key, type, callback);
 	},
 	/**
 	* Retourne le nombre de resources du Tag
