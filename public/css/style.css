@@ -28,16 +28,16 @@ div#ListResources, div#ListTags{
 	border: 1px solid #a1a1a1;
 	border-radius: 2px;
 	width: 100%;
-    padding-left: 10%;
-    text-align: justify;
+	padding-left: 10%;
+	text-align: justify;
 
 }
 
 .date {
 	text-align: right;
-    color: grey;
-    font-size: 14px;
-    font-style: italic;
+	color: grey;
+	font-size: 14px;
+	font-style: italic;
 }
 
 .success  {
@@ -50,4 +50,9 @@ div#ListResources, div#ListTags{
 
 ul#tags {
 	list-style-type: none;
+
+#Autocomplete{
+	position: absolute;
+	top: 10px;
+	margin-left: 50%;
 }

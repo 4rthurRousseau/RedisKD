@@ -20,6 +20,7 @@
     "bootstrap": "~3.3",
     "toastr": "~2.1",
     "angular-strap": "~2.2",
-    "fontawesome": "~4.5.0"
+    "fontawesome": "~4.5.0",
+    "jquery-ui": "~1.10.0"
   }
 }

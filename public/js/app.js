@@ -3,7 +3,8 @@ var API = "http://localhost:8080";
 
 var app = angular.module('RedisKD', [
 	'ngRoute',
-	'mgcrea.ngStrap'
+	'mgcrea.ngStrap',
+	'autocomplete'
 ]).config(['$routeProvider', function($routeProvider) {
 	$routeProvider.otherwise({
 		redirectTo: '/'
@@ -20,9 +21,11 @@ toastr.options = {
 app.controller('MainCtrl', ['$scope', '$rootScope', '$location', '$route', function($scope, $rootScope, $location, $route) {
 }]);
 
-app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http', function($scope, $rootScope, $location, $route, $http) {
+app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
+	$scope.currentTags = [];
+	$scope.searchTags = [];
 	$scope.tags = [];
-	$scope.pagedItems = [];
+	$scope.pages = [];
 	$scope.page = 0;
     $scope.resourcesByPage = 5;
     $scope.data = [];
@@ -40,26 +43,47 @@ app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http
 		return response;
 	});
 
+	$scope.addCurrentTags = function(tag,isSearch){
+		if(isSearch){
+			if($scope.currentTags.indexOf(tag) == -1){
+				if($scope.searchTags.indexOf(tag) !== -1){
+					$scope.currentTags.push(tag);
+				}
+			}
+		} else {
+			$scope.currentTags.push(tag);
+		}
+	};
+
 	$scope.getResourcesByTag = function(tag) {
 		$scope.resources = [];
 		$http.get(API + '/tags/' + tag).then(function(response) {
-			$http.get(API + '/resources/' + response.data).then(function(response) {
-					$scope.resources = response.data.sort(function (a,b){
-						if (a.time > b.time)
-					    	return -1;
-					  	else if (a.time < b.time)
-					    	return 1;
-					  	else 
-					    	return 0;
-					});
-					$scope.generatePages();
-				}, function(response) {
-					return response;
+		$http.get(API + '/resources/' + response.data).then(function(response) {
+			$scope.resources = response.data.sort(function (a,b){
+				if (a.time > b.time)
+					return -1;
+				else if (a.time < b.time)
+					return 1;
+				else 
+					return 0;
 				});
+				$scope.generatePages();
 			}, function(response) {
+				return response;
+			});
+		});
+	}
+
+	$scope.updateTags = function(typed){
+        $scope.searchTags = [];
+        $http.get(API + '/tags').then(function(response) {
+            response.data.forEach(function(item, index, array){
+            	$scope.searchTags.push(item.tag);
+            });
+		}, function(response) {
 			return response;
 		});
-	};
+    }
 
 	$scope.generatePages = function () {
         $scope.pages = [];
