@@ -4,18 +4,22 @@ var service = require('../services/resourceService');
 
 /**
 * Retourne les ID des resources**/
-router.get('/', function(req, res, next) {
-	service.get('resources','list',function(err, reply) {
+router.get('/', function (req, res, next) {
+	service.get('resources','list',function (err, reply) {
 		res.send(err ? err : reply);
 	});
 });
+
 /**
 * Retourne les tags de la resource
 * @param keyResource Key du de la resource
 **/
-router.get('/:keyResource/tags', function(req, res, next) {
+router.get('/:keyResource/tags', function (req, res, next) {
 	var key = req.params.keyResource;
-	service.get('resources:' + key + ':tags','setStored',function(err, reply) {
+	var keys = key.split(',');
+	var resources = [];
+
+	service.get(keys, 'inter', function (err, reply) {
 		res.send(err ? err : reply);
 	});
 });
@@ -25,7 +29,7 @@ router.get('/:keyResource/tags', function(req, res, next) {
 * @param keyResource Key de la resource
 * Laisser en dernier sinon celui-ci écrase d'autre route 
 **/
-router.get('/:keyResource', function(req, res, next) {
+router.get('/:keyResource', function (req, res, next) {
 	var key = req.params.keyResource;
 	var keys = key.split(',');
 	var resources = [];
