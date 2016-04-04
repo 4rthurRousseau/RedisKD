@@ -5,7 +5,7 @@ var winston = require('winston');
 
 var port = "6379";
 //var host = "192.168.1.21";
-var host = "172.16.4.2";
+var host = "172.17.0.2";
 
 var client = redis.createClient(port, host);
 
@@ -138,10 +138,10 @@ var db = {
 		}
 	},
 
-	generateInterKeys: function(array, prefix){
+	generateInterKeys: function(array, prefix, postfix){
 		var arr = [];
 		array.forEach(function (item, index, array){
-			arr.push(prefix + ":" + item); 
+			arr.push(prefix + ":" + item + (postfix ? ':' + postfix : '')); 
 		});
 		return arr;
 	},
