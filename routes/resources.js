@@ -27,18 +27,21 @@ router.get('/:keyResource/tags', function(req, res, next) {
 **/
 router.get('/:keyResource', function(req, res, next) {
 	var key = req.params.keyResource;
-	service.getEntity('resources:' + key,function(err, reply) {
-		if (!err){
-			service.get('resources:' + key + ':tags', 'setStored', function(tag_err, tag_reply) {
-				if (tag_err){
-					reply.tags = [];
-					res.send(reply);
-				} else {
-					reply.tags = tag_reply;
-					res.send(reply);
-				}
-			});
-		}
+	var keys = key.split(',');
+	var resources = [];
+
+	keys.forEach(function (item, index, array){
+		service.getEntity('resources:' + item,function(err, reply) {
+			if (!err){
+				service.get('resources:' + item + ':tags', 'setStored', function(tag_err, tag_reply) {
+					reply.tags = tag_err ? [] : tag_reply;
+					resources.push(reply);
+					if (index == array.length -1){
+						res.send(resources);
+					}
+				});
+			}
+		});
 	});
 });
 module.exports = router;
