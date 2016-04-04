@@ -24,10 +24,13 @@ div#ListResources{
 div#ListResources, div#ListTags{
 	display: inline-block;	
 }
-.resources {
+.resource {
+	border: 1px solid #a1a1a1;
+	border-radius: 2px;
 	width: 100%;
     padding-left: 10%;
     text-align: justify;
+
 }
 
 .date {
@@ -35,4 +38,12 @@ div#ListResources, div#ListTags{
     color: grey;
     font-size: 14px;
     font-style: italic;
+}
+
+.success  {
+	color: #1d9d74;
+}
+
+.danger  {
+	color: #d9534f;
 }
