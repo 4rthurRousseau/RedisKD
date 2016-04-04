@@ -13,32 +13,33 @@
 	</head>
 	<body ng-app="RedisKD" ng-controller="MainCtrl">
 		<div id="Tags"ng-controller="TagCtrl">
-		<div id="ListTags">
-		<h2> Les tags </h2>
-	    <autocomplete ng-model="yourchoice" data="searchTags" ng-click="getResourcesByTag();" on-select="addCurrentTags(yourchoice, true)" on-type="updateTags"></autocomplete>
-	    <hr>
-	    <h4> Filtres </h4>
-	    <ul>
-	     <li ng-repeat="currentTag in currentTags track by $index">{{currentTag}}</li>
-	    </ul>
-	    <hr size="30"> 
-		<ul>
-			<li ng-repeat="tag in tags"> <span ng-click="addCurrentTags(tag.tag, false);getResourcesByTag();">{{tag.tag}} ({{tag.count}})</span></li>
-		</ul>
-		</div>
-		<div id="ListResources"> 
-		<div class='resources' ng-repeat="resource in resources">
-			<div class='resource' ng-repeat="r in resource">
-				<span class='date'> {{r.time}} </span>
-				<br/>
-				<br/><span class='description'> {{r.description}} </span>
-				<br/><a class="link" href='{{r.href}}'>Link</a>
-				<br/><span class="informations"> Shared : {{r.shared}} | To Read : {{r.toread}} </span>
-				<br/> Tags : {{r.tags.concat()}}
-				<hr>
-			</div>	
-		</div>
-		</div>
+			<div id="ListTags">
+			<h2> Les tags </h2>
+		    <autocomplete ng-model="yourchoice" data="searchTags" ng-click="getResourcesByTag();" on-select="addCurrentTags(yourchoice, true)" on-type="updateTags"></autocomplete>
+		    <hr>
+		    <h4> Filtres </h4>
+		    <ul>
+		     <li ng-repeat="currentTag in currentTags track by $index">{{currentTag}}</li>
+		    </ul>
+		    <hr size="30"> 
+			<ul>
+				<li ng-repeat="tag in tags"> <span ng-click="addCurrentTags(tag.tag, false);getResourcesByTag();">{{tag.tag}} ({{tag.count}})</span></li>
+			</ul>
+			</div>
+				<div id="ListResources"> 
+					<autocomplete ng-model="choiceTitle" ng-click="openLink(choiceTitle);choiceTitle = '';" data="titles"></autocomplete>
+					<div class='resources' ng-repeat="resource in resources">
+						<div class='resource' ng-repeat="r in resource">
+							<span class='date'> {{r.time}} </span>
+							<br/>
+							<br/><span class='description'> {{r.description}} </span>
+							<br/><a class="link" href='{{r.href}}'>Link</a>
+							<br/><span class="informations"> Shared : {{r.shared}} | To Read : {{r.toread}} </span>
+							<br/> Tags : {{r.tags.concat()}}
+							<hr>
+						</div>	
+					</div>
+				</div>
 		</div>
 		<!-- Javascript -->
 		<script src="js/libs/angular/angular.min.js"></script>

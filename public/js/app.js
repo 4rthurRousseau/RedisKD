@@ -40,15 +40,18 @@ app.controller('NavbarCtrl', ['$scope', '$rootScope', '$location', '$route', fun
 }]);
 
 app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
+	//Variables
 	$scope.currentTags = [];
 	$scope.searchTags = [];
 	$scope.tags = [];
-
+	$scope.titles = [];
+	//Récupère les tags
 	$http.get(API + '/tags').then(function(response) {
 		$scope.tags = response.data;
 	}, function(response) {
 		return response;
 	});
+	//Ajoute un tag courrant
 	$scope.addCurrentTags = function(tag,isSearch){
 		if(isSearch){
 			if($scope.currentTags.indexOf(tag) == -1)
@@ -56,8 +59,8 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 					$scope.currentTags.push(tag);
 			}else
 				$scope.currentTags.push(tag);
-
 	};
+	//Met à jour la liste autocomplete de la recherche de tag
 	$scope.updateTags = function(typed){
         	$scope.searchTags = [];
             $http.get(API + '/tags').then(function(response) {
@@ -65,14 +68,27 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
             		$scope.searchTags.push(item.tag);
             	});
 			}, function(response) {
-			return response;
+				return response;
 			});
-        }
+    };
+    //Ouvre le lien dans la recherche de titre
+    $scope.openLink = function(title){
+    	if($scope.resources != undefined)
+	    	$scope.resources[0].forEach(function(item, index, array){
+	    		if(item.description == title)
+	    			window.open(item.href);
+	    	});
+    };
+    //Récupère les resources par rapport aux tag courrants
 	$scope.getResourcesByTag = function() {
 		if($scope.currentTags.length > 0){
 			$scope.resources = [];
+			$scope.titles = [];
 			$http.get(API + '/tags/' + $scope.currentTags.toString()).then(function(response) {
 				$http.get(API + '/resources/' + response.data).then(function(response) {
+						response.data.forEach(function(item, index, array){
+							$scope.titles.push(item.description);
+						});
 						$scope.resources.push(response.data);
 					}, function(response) {
 						return response;

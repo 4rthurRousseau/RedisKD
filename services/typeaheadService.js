@@ -3,7 +3,7 @@ var db = require('./db/db');
 var typeaheadService = {
 
 	get: function(prefix, callback){
-	 	db.getAll(prefix,'hash', callback);
+	 	db.get(prefix,'hash', callback);
 	}
 };
 
