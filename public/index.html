@@ -4,31 +4,47 @@
 		<title>Redis Knowledge Database</title>
 		<link rel="stylesheet" href="js/libs/bootstrap/dist/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="js/libs/bootstrap/dist/css/bootstrap-theme.min.css"/>
-		<link rel="stylesheet" href="js/libs/toastr/toastr.min.css"/>
+		<link rel="stylesheet" href="js/libs/fontawesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/style.css"/>
 	</head>
 	<body ng-app="RedisKD" ng-controller="MainCtrl">
-		<div id="Tags"ng-controller="TagCtrl">
-		<div id="ListTags">
-		<h2> Les tags </h2>
-		<ul>
-			<li ng-repeat="tag in tags"> <span ng-click="getResourcesByTag(tag.tag)">{{tag.tag}} ({{tag.count}})</span></li>
-		</ul>
+		<div class="container-fluid">
+			<div class="row" ng-controller="TagCtrl">
+				<div class="col-md-3" id="Tags" >
+					<h2>Tags</h2>
+					<ul id="tags">
+						<input type="text"></input>
+						<li ng-repeat="tag in tags" class="tag">
+							<span ng-click="getResourcesByTag(tag.tag)">{{tag.tag}}</span>
+							<span class="badge pull-right">{{ tag.count }}</span>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-9">
+					<div class='resources' ng-repeat="r in pages[page] track by $index">
+							<h3><a class="link" href='{{r.href}}'>{{ r.description }}</a></h3>
+							<span class='date'> {{r.time}} </span>
+							<br/>
+							<br/><span class='description'>{{r.description}}</span>
+							<br/><span class="informations">Shared : {{r.shared}} | To Read : {{r.toread}}</span>
+							<br/> Tags : {{r.tags.join(', ');}}
+							<hr>
+					</div>
+					<ul class="pagination" ng-show="resources.length > 0">
+						<li ng-class="{disabled: page == 0}">
+							<a href ng-click="previousPage()">Prev</a>
+						<li>
+						<li ng-repeat="n in range(pages.length)" ng-class="{active: n == page}" ng-click="setPage()">
+							<a href ng-bind="n + 1">1</a>
+						</li>
+						<li ng-class="{disabled: page == pages.length - 1}">
+							<a href ng-click="nextPage()">Next</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-		<div id="ListResources"> 
-		<div class='resources' ng-repeat="resource in resources">
-			<div class='resource' ng-repeat="r in resource">
-				<span class='date'> {{r.time}} </span>
-				<br/>
-				<br/><span class='description'> {{r.description}} </span>
-				<br/><a class="link" href='{{r.href}}'>Link</a>
-				<br/><span class="informations"> Shared : {{r.shared}} | To Read : {{r.toread}} </span>
-				<br/> Tags : {{r.tags.concat()}}
-				<hr>
-			</div>	
-		</div>
-		</div>
-		</div>
+
 		<!-- Javascript -->
 		<script src="js/libs/jquery/dist/jquery.min.js"></script>
 		<script src="js/libs/angular/angular.min.js"></script>
