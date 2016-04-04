@@ -38,7 +38,7 @@ app.controller('NavbarCtrl', ['$scope', '$rootScope', '$location', '$route', fun
 	$scope.focused = false;
 }]);
 
-app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http', function($scope, $rootScope, $location, $route, $http) {
+app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.tags = [];
 	$http.get(API + '/tags').then(function(response) {
 		$scope.tags = response.data;
@@ -55,6 +55,17 @@ app.controller('TagCtrl', ['$scope', '$rootScope', '$location', '$route', '$http
 				}, function(response) {
 					return response;
 				});
+			}, function(response) {
+			return response;
+		});
+	};
+}]);
+
+app.controller('TypeaheadCtrl', ['$scope', '$http', function($scope, $http) {
+	$scope.getAutocompletes = function(search) {
+		$scope.autocompletes = [];
+		$http.get(API + '/typeahead/' + search).then(function(response) {
+				
 			}, function(response) {
 			return response;
 		});

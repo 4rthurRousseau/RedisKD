@@ -36,3 +36,9 @@ div#ListResources, div#ListTags{
     font-size: 14px;
     font-style: italic;
 }
+
+#Autocomplete{
+	    position: absolute;
+    top: 10px;
+    margin-left: 50%;
+}

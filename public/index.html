@@ -6,6 +6,40 @@
 		<link rel="stylesheet" href="js/libs/bootstrap/dist/css/bootstrap-theme.min.css"/>
 		<link rel="stylesheet" href="js/libs/toastr/toastr.min.css"/>
 		<link rel="stylesheet" href="css/style.css"/>
+		<link rel="stylesheet" href="js/libs/jquery-ui/themes/smoothness/jquery-ui.css"/>
+		<script src="js/libs/jquery/dist/jquery.min.js"></script>
+		<script src="js/libs/jquery-ui/ui/jquery-ui.js"></script>
+		<script>
+		  $(function() {
+		    var availableTags = [
+		      "ActionScript",
+		      "AppleScript",
+		      "Asp",
+		      "BASIC",
+		      "C",
+		      "C++",
+		      "Clojure",
+		      "COBOL",
+		      "ColdFusion",
+		      "Erlang",
+		      "Fortran",
+		      "Groovy",
+		      "Haskell",
+		      "Java",
+		      "JavaScript",
+		      "Lisp",
+		      "Perl",
+		      "PHP",
+		      "Python",
+		      "Ruby",
+		      "Scala",
+		      "Scheme"
+		    ];
+		    $( "#Autocomplete" ).autocomplete({
+		      source: availableTags
+		    });
+		  });
+		</script>
 	</head>
 	<body ng-app="RedisKD" ng-controller="MainCtrl">
 		<div id="Tags"ng-controller="TagCtrl">
@@ -29,8 +63,14 @@
 		</div>
 		</div>
 		</div>
+		<div ng-controller="TypeaheadCtrl">
+			<div class="ui-widget">
+			  <label for="Autocomplete">Tags: </label>
+			  <input id="Autocomplete">
+			</div>
+			{{autocompletes}}
+		</div>
 		<!-- Javascript -->
-		<script src="js/libs/jquery/dist/jquery.min.js"></script>
 		<script src="js/libs/angular/angular.min.js"></script>
 		<script src="js/libs/angular-route/angular-route.min.js"></script>
 		<script src="js/libs/bootstrap/dist/js/bootstrap.min.js"></script>
