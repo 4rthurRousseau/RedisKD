@@ -15,7 +15,7 @@
 		<div id="Tags"ng-controller="TagCtrl">
 		<div id="ListTags">
 		<h2> Les tags </h2>
-	    <autocomplete ng-model="yourchoice" data="searchTags" on-select="addCurrentTags(yourchoice, true)" on-type="updateTags"></autocomplete>
+	    <autocomplete ng-model="yourchoice" data="searchTags" ng-click="getResourcesByTag();" on-select="addCurrentTags(yourchoice, true)" on-type="updateTags"></autocomplete>
 	    <hr>
 	    <h4> Filtres </h4>
 	    <ul>

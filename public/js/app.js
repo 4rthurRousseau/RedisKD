@@ -43,6 +43,7 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.currentTags = [];
 	$scope.searchTags = [];
 	$scope.tags = [];
+
 	$http.get(API + '/tags').then(function(response) {
 		$scope.tags = response.data;
 	}, function(response) {
@@ -55,7 +56,7 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 					$scope.currentTags.push(tag);
 			}else
 				$scope.currentTags.push(tag);
-				
+
 	};
 	$scope.updateTags = function(typed){
         	$scope.searchTags = [];
@@ -68,16 +69,17 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 			});
         }
 	$scope.getResourcesByTag = function() {
-		$scope.resources = [];
-		if($scope.currentTags.length > 0)
-		$http.get(API + '/tags/' + $scope.currentTags.toString()).then(function(response) {
-			$http.get(API + '/resources/' + response.data).then(function(response) {
-					$scope.resources.push(response.data);
-				}, function(response) {
-					return response;
-				});
+		if($scope.currentTags.length > 0){
+			$scope.resources = [];
+			$http.get(API + '/tags/' + $scope.currentTags.toString()).then(function(response) {
+				$http.get(API + '/resources/' + response.data).then(function(response) {
+						$scope.resources.push(response.data);
+					}, function(response) {
+						return response;
+					});
 			}, function(response) {
 			return response;
 		});
+	}
 	};
 }]);
