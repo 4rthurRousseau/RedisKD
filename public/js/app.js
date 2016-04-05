@@ -64,8 +64,10 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.addSelectedTag = function(tag, search){
 		//  This function was triggered by the search module?
 		if(search){
-			if($scope.selectedTags.indexOf(tag) == -1){
-				if($scope.typeaheadTags.indexOf(tag) !== -1){
+			console.log("Search " + $scope.selectedTags.indexOf(tag) + " : " + $scope.typeaheadTags.indexOf(tag));
+			if(!$scope.selectedTags.includes(tag)){
+				if($scope.typeaheadTags.includes(tag)){
+					$scope.selectedTags.push(tag);
 					$scope.getResourcesByTag($scope.selectedTags);
 				}
 			}
@@ -106,7 +108,7 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 						$scope.tags.forEach(function(item, index, array){
 							if($scope.selectedTags.includes(item.tag)){
 								console.log("Présent");
-								$scope.tags.pop(item);
+								$scope.tags.pop(index, 1);
 							} else {
 								$scope.typeaheadTags.push(item.tag);
 							}
