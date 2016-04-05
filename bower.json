@@ -21,6 +21,7 @@
     "toastr": "~2.1",
     "angular-strap": "~2.2",
     "fontawesome": "~4.5.0",
-    "jquery-ui": "~1.10.0"
+    "jquery-ui": "~1.10.0",
+    "moment": "~2.12.0"
   }
 }
