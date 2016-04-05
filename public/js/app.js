@@ -72,8 +72,10 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 				}
 			}
 		} else {
-			$scope.selectedTags.push(tag);
-			$scope.getResourcesByTag($scope.selectedTags);
+			if(!$scope.selectedTags.includes(tag)){
+				$scope.selectedTags.push(tag);
+				$scope.getResourcesByTag($scope.selectedTags);
+			}
 		}
 	};
 
@@ -150,7 +152,14 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
             }
         }
     };
-
+	    //Ouvre le lien dans la recherche de titre
+	$scope.openLink = function(title){
+	  	if($scope.resources != undefined)
+		   	$scope.resources.forEach(function(item, index, array){
+		   		if(item.description == title)
+		   			window.open(item.href);
+		   	});
+	    };
     $scope.range = function (start, end) {
         var ret = [];
         if (!end) {
