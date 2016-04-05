@@ -17,10 +17,18 @@ router.get('/', function (req, res, next) {
 router.get('/:keyResource/tags', function (req, res, next) {
 	var key = req.params.keyResource;
 	var keys = key.split(',');
-	var resources = [];
+	var tags = [];
+	keys.forEach(function(item, index, array){
+		service.get('resources:' + item + ':tags', 'setStored', function (err, reply) {
+			tags = tags.concat(reply);
 
-	service.get(keys, 'inter', function (err, reply) {
-		res.send(err ? err : reply);
+			if (index == array.length - 1){
+				tags = tags	.filter(function (item, index, array) {
+    				return array.indexOf(item) === index;
+				});
+				res.send(err ? err : tags);				
+			}
+		});
 	});
 });
 
