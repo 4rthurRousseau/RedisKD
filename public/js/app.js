@@ -33,14 +33,6 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 
     $scope.resourcesByPage = 5;
 
-    $scope.selectedTags.push = function() {
-    	return Array.prototype.push.apply(this, arguments);
-    }
-
-    $scope.selectedTags.pop = function() {
-    	return Array.prototype.pop.apply(this, arguments);
-    }
-
 	$http.get(API + '/tags').then(function(response) {
 		$scope.init_tags = response.data.sort(function (a,b){
 			if (a.count > b.count)
@@ -64,7 +56,6 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.addSelectedTag = function(tag, search){
 		//  This function was triggered by the search module?
 		if(search){
-			console.log("Search " + $scope.selectedTags.indexOf(tag) + " : " + $scope.typeaheadTags.indexOf(tag));
 			if(!$scope.selectedTags.includes(tag)){
 				if($scope.typeaheadTags.includes(tag)){
 					$scope.selectedTags.push(tag);
@@ -83,7 +74,7 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 		if($scope.selectedTags.length > 0){
 			$scope.resources = [];
 			$scope.titles = [];
-			$http.get(API + '/tags/' + tag).then(function(resources) {
+			$http.get(API + '/tags/' + $scope.selectedTags).then(function(resources) {
 				$http.get(API + '/resources/' + resources.data).then(function(response) {
 					$scope.resources = response.data.sort(function (a,b){
 						if (a.time > b.time)
@@ -103,20 +94,18 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 						$scope.tags = response.data.map(function(item){
 							return { 'tag' : item };
 						})
-					});
 
-					$scope.typeaheadTags = [];
-					if ($scope.selectedTags.length > 0){
+						$scope.typeaheadTags = [];
 						$scope.tags.forEach(function(item, index, array){
 							if($scope.selectedTags.includes(item.tag)){
-								console.log("Présent");
-								$scope.tags.pop(index, 1);
+								$scope.tags.splice(index, 1);
 							} else {
 								$scope.typeaheadTags.push(item.tag);
 							}
 							
 						});
-					}
+					});
+						
 					$scope.generatePages();
 
 				}, function(response) {
@@ -131,11 +120,12 @@ app.controller('TagCtrl', ['$scope', '$http', function($scope, $http) {
 	}
 
     $scope.removeSelectedTag = function(tag){
-    	if($scope.selectedTags.includes(tag) != -1){
-    		$scope.selectedTags.pop(tag);
+    	console.log(tag);
+    	if($scope.selectedTags.includes(tag)){
+    		$scope.selectedTags.splice($scope.selectedTags.indexOf(tag), 1);
     	}
 
-    	$scope.getResourcesByTag();
+    	$scope.getResourcesByTag($scope.selectedTags);
     };
 
 	$scope.generatePages = function () {
